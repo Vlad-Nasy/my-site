@@ -17,7 +17,7 @@ $(".btn-header_sub").click( function(e){
    //   	setTimeout(function(){
    //   	  	$(".progress").css("display", "none" );
 			// }, 1500);     
-			$.getJSON('mydata.json', function(data) {
+			$.getJSON('/mydata.json', function(data) {
 	Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
 };
@@ -147,7 +147,7 @@ function TicketModalShow(){
 	var num = $(this).attr('item-number');
 }
 
-$.getJSON('mydata.json', function(data) {
+$.getJSON('/mydata.json', function(data) {
 
 	Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
