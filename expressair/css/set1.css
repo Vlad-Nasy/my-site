@@ -1,0 +1,94 @@
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 1em;
+	vertical-align: top;
+}
+
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	width: 60%;
+	border: 1px solid #A1AAB7;
+box-sizing: border-box;
+border-radius: 12px;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #aaa;
+}
+
+.input__field:focus {
+	outline: none;
+}
+
+.input__label {
+	padding: 0 24px;
+    color: #6a7989;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+ margin: 1.2em 0;
+	width: auto	;
+}
+
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+
+.icon {
+	color: #ddd;
+	font-size: 150%;
+}
+
+/* Individual styles */
+
+/* Haruki */
+
+
+.input__field--haruki {
+	padding:24px;
+	width: 100%;
+	color: #141414;
+	background: transparent;
+	border: 1px solid #AFB5BB;
+box-sizing: border-box;
+border-radius: 12px;
+}
+
+.input__label--haruki {
+	position: absolute; 
+	width: auto;
+	text-align: left;
+	pointer-events: none;
+}
+
+.input__label-content--haruki {
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	background: #fff;
+	padding: 5px 10px;
+}
+
+
+.input__field--haruki:focus + .input__label--haruki .input__label-content--haruki,
+.input--filled .input__label-content--haruki {
+	-webkit-transform: translate3d(0, -50%, 0);
+	transform: translate3d(0, -120%, 0);
+	;
+}
+.input__field--haruki:focus + .input__label--haruki{
+	color: #5646C3;
+}
+.input__field--haruki:focus{
+border: 1px solid #5646C3;}
