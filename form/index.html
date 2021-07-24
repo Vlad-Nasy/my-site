@@ -4,24 +4,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Form</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<button type="button" class="btn btn-show btn-primary" data-bs-toggle="modal" data-bs-target="#MyModal">
   Launch static backdrop modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="MyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Выберите комплектацию</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -33,7 +33,8 @@
         	<ul class="modal-list modal-list_correctness">
         	</ul>
         </div>
-        <div class="modal-wrapper"><table class="table table-striped ">
+        <div class="modal-wrapper">
+          <table class="table table-striped ">
   <thead>
     <tr class="table-primary">
       <th scope="col">Название</th>
@@ -45,56 +46,118 @@
   <tbody>
     <tr>
       <td>Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)</td>
-      <td>30600</td>
+      <td class="table-price">30600</td>
       <td><input type="text" value="1" class="table-input"></td>
-      <td>30600</td>
+      <td class="table-item-price">30600</td>
     </tr>
- <tr>
-      <td>Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)</td>
-      <td>30600</td>
+    <tr>
+      <td>Зарядное устройство LEICA GKL311 (GEB221,GEB211)</td>
+      <td class="table-price">12750</td>
       <td><input type="text" value="1" class="table-input"></td>
-      <td>30600</td>
+      <td class="table-item-price">12750</td>
     </tr>
-     <tr>
-      <td>Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)</td>
-      <td>30600</td>
+    <tr>
+      <td>Трегер GDF311 (Без оптического центрира)</td>
+      <td class="table-price">23460</td>
       <td><input type="text" value="1" class="table-input"></td>
-      <td>30600</td>
+      <td class="table-item-price">23460</td>
     </tr>
-    
+    <tr>
+      <td>Адаптер LEICA GHT196 (GHM007)</td>
+      <td class="table-price">2040</td>
+      <td><input type="text" value="1" class="table-input"></td>
+      <td class="table-item-price">2040</td>
+    </tr>
+    <tr>
+      <td>Рулетка LEICA GHM007 (измерение высоты)</td>
+      <td class="table-price">5610</td>
+      <td><input type="text" value="1" class="table-input"></td>
+      <td class="table-item-price">5610</td>
+    </tr>
+    <tr>
+      <td>MS1, Industrial grade USB memory stick 1 GB.</td>
+      <td class="table-price">11016</td>
+      <td><input type="text" value="1" class="table-input"></td>
+      <td class="table-item-price">11016</td>
+    </tr>
+    <tr>
+      <td>Кабель LEICA GEV223 данных (USB/USB mini; 1.8м)</td>
+      <td class="table-price">3315</td>
+      <td><input type="text" value="1" class="table-input"></td>
+      <td class="table-item-price">3315</td>
+    </tr>
+    <tr>
+      <td>Ремень LEICA GVP718 (базовые, для кейса)</td>
+      <td class="table-price">10710</td>
+      <td><input type="text" value="1" class="table-input"></td>
+      <td class="table-item-price">10710</td>
+    </tr>
   </tbody>
 </table>
 </div>
-      </div>
-
+</div>
+<div class="modal-footer">
+    <div class="table-sum"></div>
+   <button type="button" class="btn btn-primary btn-submit" data-bs-dismiss="modal">Send</button>
+  </div>
     </div>
   </div>
 </div>
 </body>
 <script>
+$(document).ready(function(){
 	$(document).on('click' , '.modal-li', function() {
-		console.log($(this).text());
 		$(this).closest(".modal-wrapper").removeClass("active");
 		$(this).closest(".modal-wrapper").next().addClass("active");
-		var index = $(this).attr('index');
-		 
-		 $.getJSON('mydata.json', function(data) {
-		for (var i = 0; i < data.device[index].correctness.length; ++i) {
-			$(".modal-list_correctness").append("<li class='modal-li' index='"+ i+"'>" +data.device[index].correctness[i]+ "</li>");
-		}
-		
+    if ($(this).closest(".modal-list").hasClass("modal-list_correctness")) {
+      $(".modal-footer").addClass("active")};
 	})
-	})
+
+  $(document).on('click' , '.modal-list_name > .modal-li', function() {
+  var index = $(this).attr('index');
+    $.getJSON('mydata.json', function(data) {
+      $(".modal-list_correctness").html("");
+    for (var i = 0; i < data.device[index].correctness.length; ++i) {
+      $(".modal-list_correctness").append("<li class='modal-li' index='"+ i+"'>" +data.device[index].correctness[i]+ "</li>")}
+    })
+  })
 
 	$.getJSON('mydata.json', function(data) {
 		for (var i = 0; i < data.device.length; ++i) {
 			$(".modal-list_name").append("<li class='modal-li' index='"+ i+"'>" +data.device[i].name+ "</li>");
 		}
 	})
+
 	$(".table-input").keypress(function(event){
   event = event || window.event;
   if (event.charCode && event.charCode!=0 && event.charCode!=46 && (event.charCode < 48 || event.charCode > 57) )
     return false;
+});
+
+  $(document).on('change' , '.table-input', function() {
+    var price = $(this).closest('td').prev().text();
+    var value = $(this).val();
+    $(this).closest('td').next().text(price * value);
+    sum_count();
+  });
+
+  function sum_count() {
+    var sum = 0;
+    $('.table-item-price').each(function(){
+        sum += parseInt($(this).text())
+    })
+    $('.table-sum').text("Общая сумма: "+sum);
+};
+
+ sum_count();
+
+ $(".btn-submit").on('click', function(){
+  // $("#MyModal").hide();
+  $(".modal-wrapper.active").removeClass("active");
+   $(".modal-wrapper").first().addClass("active");
+   $(".modal-footer").removeClass("active");
+   
+ });
 });
 </script>
 </html>
