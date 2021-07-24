@@ -1,0 +1,13 @@
+{
+	"device":[{
+		"name" : "Тахеометр LEICA TS03 R500",
+		"correctness" : ["2''","3''","5''"]
+	}, {
+		"name" : "Тахеометр LEICA TS03 R1000",
+		"correctness" : ["3''","3''","5''"]
+	}, {
+		"name" : "Тахеометр LEICA TS03 R1000",
+		"correctness" : ["4''","3''","5''"]
+	}
+	]
+}

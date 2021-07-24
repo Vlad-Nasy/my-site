@@ -1,0 +1,41 @@
+   li {
+    list-style-type: none; /* Убираем маркеры */
+   }
+   ul {
+    margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+   }
+.btn{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    height: fit-content;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.modal-wrapper{
+	display: none;
+}
+.active{
+	display: block;
+}
+
+.modal-li{
+	padding: 5px 20px;
+	margin-top: 5px;
+	cursor: pointer;
+	transition: .5s;
+    border-radius: 24px;
+    font-size: 18px;
+}
+.modal-li:hover{
+	background-color: #c6e5fd;
+}
+.table-input{
+	width: 30px;
+    padding: 0;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+}
