@@ -18,7 +18,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="MyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered  modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Выберите комплектацию</h5>
@@ -47,49 +47,49 @@
     <tr>
       <td>Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)</td>
       <td class="table-price">30600</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">30600</td>
     </tr>
     <tr>
       <td>Зарядное устройство LEICA GKL311 (GEB221,GEB211)</td>
       <td class="table-price">12750</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">12750</td>
     </tr>
     <tr>
       <td>Трегер GDF311 (Без оптического центрира)</td>
       <td class="table-price">23460</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">23460</td>
     </tr>
     <tr>
       <td>Адаптер LEICA GHT196 (GHM007)</td>
       <td class="table-price">2040</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">2040</td>
     </tr>
     <tr>
       <td>Рулетка LEICA GHM007 (измерение высоты)</td>
       <td class="table-price">5610</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">5610</td>
     </tr>
     <tr>
       <td>MS1, Industrial grade USB memory stick 1 GB.</td>
       <td class="table-price">11016</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">11016</td>
     </tr>
     <tr>
       <td>Кабель LEICA GEV223 данных (USB/USB mini; 1.8м)</td>
       <td class="table-price">3315</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">3315</td>
     </tr>
     <tr>
       <td>Ремень LEICA GVP718 (базовые, для кейса)</td>
       <td class="table-price">10710</td>
-      <td><input type="text" value="1" class="table-input"></td>
+      <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">10710</td>
     </tr>
   </tbody>
@@ -128,12 +128,6 @@ $(document).ready(function(){
 		}
 	})
 
-	$(".table-input").keypress(function(event){
-  event = event || window.event;
-  if (event.charCode && event.charCode!=0 && event.charCode!=46 && (event.charCode < 48 || event.charCode > 57) )
-    return false;
-});
-
   $(document).on('change' , '.table-input', function() {
     var price = $(this).closest('td').prev().text();
     var value = $(this).val();
@@ -152,7 +146,6 @@ $(document).ready(function(){
  sum_count();
 
  $(".btn-submit").on('click', function(){
-  // $("#MyModal").hide();
   $(".modal-wrapper.active").removeClass("active");
    $(".modal-wrapper").first().addClass("active");
    $(".modal-footer").removeClass("active");
