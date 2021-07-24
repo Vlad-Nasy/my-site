@@ -5,8 +5,8 @@
     margin-left: 0; /* Отступ слева в браузере IE и Opera */
     padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
    }
-.btn{
-	position: absolute;
+.btn-show{
+    position: absolute;
     top: 0;
     bottom: 0;
     height: fit-content;
@@ -14,13 +14,16 @@
     left: 0;
     right: 0;
 }
-.modal-wrapper{
+.modal-footer,.modal-wrapper{
 	display: none;
 }
 .active{
 	display: block;
 }
-
+.modal-footer.active{
+    display: flex;
+    justify-content: space-between;
+}
 .modal-li{
 	padding: 5px 20px;
 	margin-top: 5px;
@@ -38,4 +41,7 @@
     border: none;
     text-align: center;
     background-color: transparent;
+}
+.table-sum{
+    font-size: 21px;
 }
