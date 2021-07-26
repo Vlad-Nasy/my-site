@@ -87,8 +87,10 @@ $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
 	    console.log( index + index1);
-	$("tbody").append("<tr><td>"+ "</td><td class='table-price'>30600</td><td><input type='number' min='0' value='1' class='table-input'></td><td class='table-item-price'>30600</td></tr> ")
-    });
+	    for (var i = 0; i < data.device[index].parameters[index1].equipment.length; ++i) {
+	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment[i].name +"</td><td class='table-price'>"+data.device[index].parameters[index1].equipment[i].price+"</td><td><input type='number' min='0' value='"+data.device[index].parameters[index1].equipment[i].count+"' class='table-input'></td><td class='table-item-price'></td></tr> ")
+    	});
+      });
  });
 	
   $(document).on('change' , '.table-input', function() {
