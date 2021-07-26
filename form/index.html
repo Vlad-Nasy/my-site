@@ -68,8 +68,8 @@ $(document).ready(function(){
   var index = $(this).attr('index');
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
-    for (var i = 0; i < data.device[index].correctness.length; ++i) {
-      $(".modal-list_correctness").append("<li class='modal-li' index='"+ i+"'>" +data.device[index].correctness[i]+ "</li>")}
+    for (var i = 0; i < data.device[index].parameters.length; ++i) {
+      $(".modal-list_correctness").append("<li class='modal-li' index='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
     })
   })
 
