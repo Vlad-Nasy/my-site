@@ -63,13 +63,13 @@ $(document).ready(function(){
 		$(this).closest(".modal-wrapper").next().addClass("active");
     
 	})
-console.log("123");
+ var index;	
   $(document).on('click' , '.modal-list_name > .modal-li', function() {
   var index = $(this).attr('index');
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
     for (var i = 0; i < data.device[index].parameters.length; ++i) {
-      $(".modal-list_correctness").append("<li class='modal-li' index='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
+      $(".modal-list_correctness").append("<li class='modal-li' index1='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
     })
   })
 
@@ -82,8 +82,12 @@ console.log("123");
 	
 $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
       $(".modal-footer").addClass("active");
-	$("tbody").append("<tr><td>Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)</td><td class='table-price'>30600</td><td><input type='number' min='0' value='1' class='table-input'></td><td class='table-item-price'>30600</td></tr> ")
-});
+	var index1 = $(this).attr('index1');
+    $.getJSON('mydata.json', function(data) {
+      $(".modal-list_correctness").html("");
+	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment.name +"</td><td class='table-price'>30600</td><td><input type='number' min='0' value='1' class='table-input'></td><td class='table-item-price'>30600</td></tr> ")
+    });
+ });
 	
   $(document).on('change' , '.table-input', function() {
     var price = $(this).closest('td').prev().text();
