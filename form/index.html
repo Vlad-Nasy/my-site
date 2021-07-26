@@ -89,6 +89,9 @@ $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
 	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment[i].name +"</td><td class='table-price'>"+data.device[index].parameters[index1].equipment[i].price+"</td><td><input type='number' min='0' value='"+data.device[index].parameters[index1].equipment[i].count+"' class='table-input'></td><td class='table-item-price'></td></tr> ")
     	};
       });
+	$('.table-item-price').each(function(){
+        $(this).text() = parseInt($(this).prev().val()) * parseInt($(this).prev().prev().text());
+    });
  });
 	
   $(document).on('change' , '.table-input', function() {
