@@ -69,7 +69,7 @@ $(document).ready(function(){
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
     for (var i = 0; i < data.device[index].parameters.length; ++i) {
-      $(".modal-list_correctness").append("<li class='modal-li' index1='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
+      $(".modal-list_correctness").append("<li class='modal-li' index='"+ index +"' index1='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
     })
   })
 
@@ -83,6 +83,7 @@ $(document).ready(function(){
 $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
       $(".modal-footer").addClass("active");
 	var index1 = $(this).attr('index1');
+	var index = $(this).attr('index');
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
 	    console.log( index + index1);
