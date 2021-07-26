@@ -10,14 +10,14 @@
 				}]
 			}, {
 			"correctness" : "2''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
 				}]
 			}, {
 			"correctness" : "3''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
@@ -35,14 +35,14 @@
 				}]
 			}, {
 			"correctness" : "2''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
 				}]
 			}, {
 			"correctness" : "3''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
@@ -60,14 +60,14 @@
 				}]
 			}, {
 			"correctness" : "2''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
 				}]
 			}, {
 			"correctness" : "3''",
-			"equipment" : {
+			"equipment" : [{
 				"name" : "Аккумулятор GEB361 (11.1V /5.6 Ah ч, Li-Ion)",
 				"price" : "30600",
 				"count" : "1"
