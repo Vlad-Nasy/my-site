@@ -85,6 +85,7 @@ $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
 	var index1 = $(this).attr('index1');
     $.getJSON('mydata.json', function(data) {
       $(".modal-list_correctness").html("");
+	    console.log(data.device[index].parameters );
 	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment.name +"</td><td class='table-price'>30600</td><td><input type='number' min='0' value='1' class='table-input'></td><td class='table-item-price'>30600</td></tr> ")
     });
  });
