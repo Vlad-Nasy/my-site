@@ -49,49 +49,7 @@
       <td class="table-price">30600</td>
       <td><input type="number" min="0" value="1" class="table-input"></td>
       <td class="table-item-price">30600</td>
-    </tr>
-    <tr>
-      <td>Зарядное устройство LEICA GKL311 (GEB221,GEB211)</td>
-      <td class="table-price">12750</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">12750</td>
-    </tr>
-    <tr>
-      <td>Трегер GDF311 (Без оптического центрира)</td>
-      <td class="table-price">23460</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">23460</td>
-    </tr>
-    <tr>
-      <td>Адаптер LEICA GHT196 (GHM007)</td>
-      <td class="table-price">2040</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">2040</td>
-    </tr>
-    <tr>
-      <td>Рулетка LEICA GHM007 (измерение высоты)</td>
-      <td class="table-price">5610</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">5610</td>
-    </tr>
-    <tr>
-      <td>MS1, Industrial grade USB memory stick 1 GB.</td>
-      <td class="table-price">11016</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">11016</td>
-    </tr>
-    <tr>
-      <td>Кабель LEICA GEV223 данных (USB/USB mini; 1.8м)</td>
-      <td class="table-price">3315</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">3315</td>
-    </tr>
-    <tr>
-      <td>Ремень LEICA GVP718 (базовые, для кейса)</td>
-      <td class="table-price">10710</td>
-      <td><input type="number" min="0" value="1" class="table-input"></td>
-      <td class="table-item-price">10710</td>
-    </tr>
+    </tr>   
   </tbody>
 </table>
 </div>
@@ -109,8 +67,7 @@ $(document).ready(function(){
 	$(document).on('click' , '.modal-li', function() {
 		$(this).closest(".modal-wrapper").removeClass("active");
 		$(this).closest(".modal-wrapper").next().addClass("active");
-    if ($(this).closest(".modal-list").hasClass("modal-list_correctness")) {
-      $(".modal-footer").addClass("active")};
+    
 	})
 
   $(document).on('click' , '.modal-list_name > .modal-li', function() {
@@ -128,6 +85,11 @@ $(document).ready(function(){
 		}
 	})
 
+	
+$(document).on('click' , '.modal-list_correctness > .modal-li', function() {
+      $(".modal-footer").addClass("active")
+});
+	
   $(document).on('change' , '.table-input', function() {
     var price = $(this).closest('td').prev().text();
     var value = $(this).val();
