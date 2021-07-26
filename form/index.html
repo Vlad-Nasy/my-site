@@ -86,7 +86,8 @@ $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
 	var index = $(this).attr('index');
     $.getJSON('mydata.json', function(data) {
 	    for (var i = 0; i < data.device[index].parameters[index1].equipment.length; ++i) {
-	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment[i].name +"</td><td class='table-price'>"+data.device[index].parameters[index1].equipment[i].price+"</td><td><input type='number' min='0' value='"+data.device[index].parameters[index1].equipment[i].count+"' class='table-input'></td><td class='table-item-price'>"+ parseInt(data.device[index].parameters[index1].equipment[i].price) * parseInt(data.device[index].parameters[index1].equipment[i].count)+"</td></tr> ")
+		    var sum =  parseInt(data.device[index].parameters[index1].equipment[i].price) * parseInt(data.device[index].parameters[index1].equipment[i].count);
+	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment[i].name +"</td><td class='table-price'>"+data.device[index].parameters[index1].equipment[i].price+"</td><td><input type='number' min='0' value='"+data.device[index].parameters[index1].equipment[i].count+"' class='table-input'></td><td class='table-item-price'>"+ sum +"0</td></tr> ")
     	};
       });
 });
