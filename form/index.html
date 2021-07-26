@@ -85,9 +85,10 @@ $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
 	var index1 = $(this).attr('index1');
 	var index = $(this).attr('index');
     $.getJSON('mydata.json', function(data) {
-      $(".modal-list_correctness").html("");
-	    console.log( data.device[index].parameters[index1].equipment.length+ " " +data.device[index].parameters[index1].equipment);
-	    
+	    console.log( data.device[index].parameters[index1].equipment.length);
+	    for (var i = 0; i < data.device[index].parameters[index1].equipment.length; ++i) {
+	$("tbody").append("<tr><td>12</td><td class='table-price'>23</td><td><input type='number' min='0' value='3' class='table-input'></td><td class='table-item-price'></td></tr> ")
+    	};
       });
  });
 	
