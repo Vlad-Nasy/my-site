@@ -1021,6 +1021,9 @@ margin-bottom: 0;
 	color: #3C4147;
 	font-weight: 600;
 }
+.ticket-spoiler_content .ticket-slider_title:not(:first-child){
+	margin-top: 30px;
+}
 .ticket-slider_content{
 	font-size: 14px;
 	color: #3C4147;
