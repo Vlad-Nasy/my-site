@@ -687,7 +687,7 @@ if(data.ParsedData.PricedItineraries[i].Directions[0] == null){
 	var n=0;
 }
 
-$(".section-ticket_right").append("<div class='section-ticket_item ' item-number='"+i+"'  fly-duration1='"+ fly_duration1(i,n) +"' fly-duration2='"+ fly_duration2(i,1) +"' stop-duration='"+ stop_duration(i,n) +"' segment='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments.length+"'> <div class='section-ticket_item-left'> <div class='section-ticket_weight'>"+ Baggages(i ,n) +"<button type='button' class='btn section-ticket_btn' data-bs-toggle='modal' data-bs-target='#modal-reserve'><div class='section-ticket_btn-sum'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +" ₸</div><div class='section-ticket_btn-text'>Оставить заявку на бронь</div></button> </div><div class='section-ticket_item-right'> <div class='section-ticket_item-trip'> <div class='item-trip_header'> <div class='item-trip_carriers'> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> </div><div class='item-trip-label_wrap'></div></div><div class='item-trip_outer'> <div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("d mmm yyyy, ddd") +"</div></div><div class='item-trip_segment-wrap'> <div class='trip-segment_duration'>"+ FlightDuration(n, i) +"</div><div class='trip-segment_path'> <div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane' alt=''> <div class='trip-segment_airport'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +"</div></div>"+ SegmentDuration(i, n)+"<div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane __arrival' alt=''> <div class='trip-segment_airport __arrival'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div></div></div></div><div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("d mmm yyyy, ddd") +"</div></div></div>"+ DirectionsTicket(i, n) + "</div></div><div class='clear'></div></div>");
+$(".section-ticket_right").append("<div class='section-ticket_item ' item-number='"+i+"'  fly-duration1='"+ fly_duration1(i,n) +"' fly-duration2='"+ fly_duration2(i,1) +"' stop-duration='"+ stop_duration(i,n) +"' segment='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments.length+"' AirlineName='"+ data.ParsedData.PricedItineraries[i].ValidatingAirlineName +"'> <div class='section-ticket_item-left'> <div class='section-ticket_weight'>"+ Baggages(i ,n) +"<button type='button' class='btn section-ticket_btn' data-bs-toggle='modal' data-bs-target='#modal-reserve'><div class='section-ticket_btn-sum'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +" ₸</div><div class='section-ticket_btn-text'>Оставить заявку на бронь</div></button> </div><div class='section-ticket_item-right'> <div class='section-ticket_item-trip'> <div class='item-trip_header'> <div class='item-trip_carriers'> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> </div><div class='item-trip-label_wrap'></div></div><div class='item-trip_outer'> <div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("d mmm yyyy, ddd") +"</div></div><div class='item-trip_segment-wrap'> <div class='trip-segment_duration'>"+ FlightDuration(n, i) +"</div><div class='trip-segment_path'> <div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane' alt=''> <div class='trip-segment_airport'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +"</div></div>"+ SegmentDuration(i, n)+"<div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane __arrival' alt=''> <div class='trip-segment_airport __arrival'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div></div></div></div><div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("d mmm yyyy, ddd") +"</div></div></div>"+ DirectionsTicket(i, n) + "</div></div><div class='clear'></div></div>");
 
 function DirectionsTicket(i,n){
 	if (data.ParsedData.PricedItineraries[i].Directions.length == 1 || n == 1) {
@@ -813,7 +813,6 @@ if(PriceRow[i] < PriceMin){
 // =================== /for(i)
 
 // ====== create-filter
-console.log( AirlineName);
 
 for( var b = 0; b < DepartureAirport.length; b++ ){
 $(".spoiler-content_DepartureAirport").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='2' value='2'><span class='ticket-spoiler_fake'></span><p>"+ DepartureAirport[b] + "</p></div><div class='ticket-check_sum'>ALA</div></label>");
@@ -1350,11 +1349,13 @@ $('input[type=radio][name=ticket-spoiler]').change(function() {
 });
 
 $(document).on('change' , 'input[type=radio][name=StopAirport2]', Filtration);
+$(document).on('change' , 'input[type=radio][name=AirlineName]', Filtration);
 
 function Filtration(){
 
 	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
 	var check_StopAirport2 = $('input[type=radio][name=StopAirport2]:checked').val();
+	var check_AirlineName = $('input[type=radio][name=AirlineName]:checked').val();
 	var slider_input1 =  $( "#slider-range1" ).slider( "values", 0 );
 	var slider_input2 = $( "#slider-range1" ).slider( "values", 1 );
 	var slider_input3 = $( "#slider-range2" ).slider( "values", 0 );
@@ -1364,12 +1365,20 @@ function Filtration(){
 	var slider_input7 = $( "#slider-range4" ).slider( "values", 0 );
 	var slider_input8 = $( "#slider-range4" ).slider( "values", 1 );
 
-// console.log( TimeEdit($( "#slider-range2" ).slider( "values", 0 )) + " : " + $( "#slider-range2" ).slider( "values" ) )
 
 	$('.section-ticket_item:not(.__mobile)').each( function(element) {
 
 		if ( $(this).attr("segment") == check_ticketSpoiler || check_ticketSpoiler == 1 ) {
-			$(this).css('display', 'flex');
+		var bool_change = true;
+			} else{
+				var bool_change = false;
+			}
+
+if ( check_AirlineName == $(this).attr("AirlineName") || check_AirlineName == 1 ) {
+		var bool_AirlineName = true;
+			} else{
+				var bool_AirlineName = false;
+			}
 
 			if ( ($(this).attr("stop-duration") >= slider_input1 && $(this).attr("stop-duration") <=  slider_input2) || $(this).attr("stop-duration") == 0) {
 				var bool_stop_duration = true;
@@ -1399,15 +1408,13 @@ function Filtration(){
 
 
 
-			if( bool_fly_duration && bool_stop_duration && bool_price && bool_stop_airport){
+			if( bool_change && bool_fly_duration && bool_stop_duration && bool_price && bool_stop_airport && bool_AirlineName){
 			$(this).css('display', 'flex')
 			}else{
 			$(this).css('display', 'none')
 			}
 
-		}else{
-			$(this).css('display', 'none')
-		}
+		
 	});
 }
 //  =========== /filtration ==============   
