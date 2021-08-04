@@ -259,21 +259,88 @@
  					<div class="slider-range" id="slider-range3"></div>
 					</div>
 				</div>
-<!-- 				<div class="ticket-spoiler_item">
+
+				<div class="ticket-spoiler_item">
 					<div class="ticket-spoiler_title">
 						Авиакомпании
 					</div>
 					<div class="ticket-spoiler_content">
+					<div class="spoiler-content_AirlineName">
+					<label class="ticket-spoiler_label">
+						<div class="ticket-check_left">
+	      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="AirlineName" value="1"><span class="ticket-spoiler_fake"></span>
+	      			<p>Все</p></div>
+	      			<div class="ticket-check_sum"></div>
+	   			</label>
+	   			</div>	   			
 					</div>
 				</div>
+
 				<div class="ticket-spoiler_item">
 					<div class="ticket-spoiler_title">
 						Аэропорты
 					</div>
 					<div class="ticket-spoiler_content">
-					</div>
-				</div> -->
 
+					<div class="ticket-slider_title">Вылет</div>
+					<div class="spoiler-content_DepartureAirport">
+					<label class="ticket-spoiler_label">
+						<div class="ticket-check_left">
+	      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="2" value="1"><span class="ticket-spoiler_fake"></span>
+	      			<p>Все</p></div>
+	      			<div class="ticket-check_sum"></div>
+	   			</label>
+					</div>
+	   			<div class="ticket-slider_title">Прибытия</div>
+	   			<div class="spoiler-content_ArrivalAirport">
+	   			<label class="ticket-spoiler_label">
+						<div class="ticket-check_left">
+	      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="3" value="1"><span class="ticket-spoiler_fake"></span>
+	      			<p>Все</p></div>
+	      			<div class="ticket-check_sum"></div>
+	   			</label>
+	   			</div>
+					</div>
+				</div>
+
+				<div class="ticket-spoiler_item">
+					<div class="ticket-spoiler_title">
+						Аэропорты пересадки
+					</div>
+					<div class="ticket-spoiler_content">
+						<div class="ticket-slider_title">Алматы – Нур-Султан</div>
+						<div class="spoiler-content_StopAirport1">
+						<label class="ticket-spoiler_label">
+							<div class="ticket-check_left">
+		      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="StopAirport1" value="1"><span class="ticket-spoiler_fake"></span>
+		      			<p>Все</p></div>
+		      			<div class="ticket-check_sum">32 062  ₸</div>
+		   			</label>
+		   			</div>
+		   			<div class="ticket-slider_title">Нур-Султан – Алматы </div>
+		   			<div class="spoiler-content_StopAirport2">
+						<label class="ticket-spoiler_label">
+							<div class="ticket-check_left">
+		      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="StopAirport2" value="1"><span class="ticket-spoiler_fake"></span>
+		      			<p>Все</p></div>
+		      			<div class="ticket-check_sum">32 062  ₸</div>
+		   			</label>
+		   			</div>
+						</div>
+				</div>
+
+				<div class="ticket-spoiler_item">
+					<div class="ticket-spoiler_title">
+						Цена билета
+					</div>
+					<div class="ticket-spoiler_content">
+						<div class="ticket-slider_content">
+							  <input type="text" class="slider_input" id="slider_input7" readonly>
+							  <input type="text" class="slider_input" id="slider_input8" readonly>
+					</div>
+ 					<div class="slider-range" id="slider-range4"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="section-ticket_right">
@@ -602,6 +669,15 @@ let StopDurationRow = [];
 var StopDurationMax = 0;
 var StopDurationMin = 1000;
 
+let DepartureAirport = [];
+let ArrivalAirport = [];
+let AirlineName = [];
+let StopAirport1 = [];
+let StopAirport2 = [];
+
+let PriceRow = [];
+var PriceMax = 0;
+var PriceMin = 10000000;
 
 for (var i = 0; i < data.ParsedData.PricedItineraries.length; ++i) {
 
@@ -650,13 +726,14 @@ function SegmentAirport(i, n){
 	}
 }
 
-// =====================  подготовка для фильтрации
-	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
-		let city = [];
-		city.push(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirportRu);
-//console.log(city[0])
+// =====================  preparing for slider
+// 	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
+// 		let city = [];
+// 		city.push(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirportRu);
+// //console.log(city[0])
 
-};
+// };
+
 if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
 FlyDuration1Row[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000);
 
@@ -667,7 +744,6 @@ if(FlyDuration1Row[i] > Duration1Max){
 if(FlyDuration1Row[i] < Duration1Min){
      Duration1Min = FlyDuration1Row[i];   
    }
-//console.log( FlyDurationRow[i]);
 };
 
 
@@ -681,7 +757,9 @@ if(FlyDuration2Row[i] < Duration2Min){
      Duration2Min = FlyDuration2Row[i];   
    }
 
-StopDurationRow[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].DepartureDateTime)))/60000);
+
+if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
+StopDurationRow[i] = (Math.trunc((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[1].DepartureDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalDateTime)))/ 60000 ));
 
 if(StopDurationRow[i] > StopDurationMax){
      StopDurationMax = StopDurationRow[i];   
@@ -690,24 +768,151 @@ if(StopDurationRow[i] > StopDurationMax){
 if(StopDurationRow[i] < StopDurationMin){
      StopDurationMin = StopDurationRow[i];   
    }
+};
+
+
+if(AirlineName.indexOf(data.ParsedData.PricedItineraries[i].ValidatingAirlineName) === -1){
+      AirlineName.push(data.ParsedData.PricedItineraries[i].ValidatingAirlineName);
+  }
+
+if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
+	if(DepartureAirport.indexOf(data.ParsedData.PricedItineraries[i].Directions[0].DepartureAirportRu) === -1){
+      DepartureAirport.push(data.ParsedData.PricedItineraries[i].Directions[0].DepartureAirportRu);
+  }
+
+  if(ArrivalAirport.indexOf(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalAirportRu) === -1){
+      ArrivalAirport.push(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalAirportRu);
+  }
+
+  if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
+	  if(StopAirport1.indexOf(data.ParsedData.PricedItineraries[i].Directions[0].Segments[0].ArrivalAirport) === -1){
+	      StopAirport1.push(data.ParsedData.PricedItineraries[i].Directions[0].Segments[0].ArrivalAirport);
+	  }
+	}
+  
+}else{
+	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
+	  if(StopAirport2.indexOf(data.ParsedData.PricedItineraries[i].Directions[1].Segments[0].ArrivalAirport) === -1){
+	      StopAirport2.push(data.ParsedData.PricedItineraries[i].Directions[1].Segments[0].ArrivalAirport);
+	  }
+	}
+};
+
+PriceRow[i] = data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare;
+
+if(PriceRow[i] > PriceMax){
+     PriceMax = PriceRow[i];   
+   }
+
+if(PriceRow[i] < PriceMin){
+     PriceMin = PriceRow[i];   
+   }
+// =====================  /preparing for slider
 
 };
+// =================== /for(i)
+
+// ====== create-filter
+console.log( AirlineName);
+
+for( var b = 0; b < DepartureAirport.length; b++ ){
+$(".spoiler-content_DepartureAirport").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='2' value='2'><span class='ticket-spoiler_fake'></span><p>"+ DepartureAirport[b] + "</p></div><div class='ticket-check_sum'>ALA</div></label>");
+}
+for( var b = 0; b < ArrivalAirport.length; b++ ){
+$(".spoiler-content_ArrivalAirport").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='3' value='2'><span class='ticket-spoiler_fake'></span><p>"+ ArrivalAirport[b] + "</p></div><div class='ticket-check_sum'>NQZ</div></label>");
+}
+for( var b = 0; b < StopAirport1.length; b++ ){
+$(".spoiler-content_StopAirport1").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='StopAirport1' value='"+ StopAirport1[b] + "'><span class='ticket-spoiler_fake'></span><p>"+ StopAirport1[b] + "</p></div><div class='ticket-check_sum'></div></label>");
+}
+for( var b = 0; b < StopAirport2.length; b++ ){
+$(".spoiler-content_StopAirport2").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='StopAirport2' value='"+ StopAirport2[b]+"'><span class='ticket-spoiler_fake'></span><p>"+ StopAirport2[b] + "</p></div><div class='ticket-check_sum'></div></label>");
+}
+for( var b = 0; b < AirlineName.length; b++ ){
+$(".spoiler-content_AirlineName").append("<label class='ticket-spoiler_label'><div class='ticket-check_left'><input type='radio' class='ticket-spoiler__checkbox' name='AirlineName' value='"+ AirlineName[b]+"'><span class='ticket-spoiler_fake'></span><p>"+ AirlineName[b] + "</p></div><div class='ticket-check_sum'></div></label>");
+}
+// ====== /create-filter
+// ====== slider
+ $( function() {
+    $( "#slider-range1" ).slider({
+      range: true,
+      min: StopDurationMin,
+      step: 5,
+      max: StopDurationMax,
+      values: [0, StopDurationMax],
+      slide: function( event, ui ) {
+        $( "#slider_input1" ).val( "от " + TimeEdit(ui.values[ 0 ]) );
+        $( "#slider_input2" ).val( "до " + TimeEdit(ui.values[ 1 ]) );
+      },
+      change: function( event, ui ) {
+      	$("#slider_input4").trigger('change');
+    }
+    });
+    $( "#slider_input2" ).val( "до " + TimeEdit(StopDurationMax ));
+$( "#slider_input1" ).val( "от " + TimeEdit(StopDurationMin ));
+  });
+
+
+ $( function() {
+    $( "#slider-range2" ).slider({
+      range: true,
+      min: Duration1Min,
+      step: 5,
+      max: Duration1Max,
+      values: [0, Duration1Max],
+      slide: function( event, ui ) {
+        $( "#slider_input3" ).val( "от " + TimeEdit(ui.values[ 0 ]) );
+        $( "#slider_input4" ).val( "до " + TimeEdit(ui.values[ 1 ]) );
+      },
+      change: function( event, ui ) {
+      	$("#slider_input4").trigger('change');
+    }
+    });
+    $( "#slider_input4" ).val( "до " + TimeEdit(Duration1Max ));
+$( "#slider_input3" ).val( "от " + TimeEdit(Duration1Min ));
+  });
+
+
+ $( function() {
+    $( "#slider-range3" ).slider({
+      range: true,
+      min: Duration2Min,
+      step: 5,
+      max: Duration2Max,
+      values: [0, Duration2Max],
+      slide: function( event, ui ) {
+        $( "#slider_input5" ).val( "от " + TimeEdit(ui.values[ 0 ]) );
+        $( "#slider_input6" ).val( "до " + TimeEdit(ui.values[ 1 ]) );
+      },
+      change: function( event, ui ) {
+      	$("#slider_input4").trigger('change');
+    }
+    });
+    $( "#slider_input6" ).val( "до " + TimeEdit(Duration2Max ));
+$( "#slider_input5" ).val( "от " + TimeEdit(Duration2Min ));
+});
+
+ $( function() {
+    $( "#slider-range4" ).slider({
+      range: true,
+      min: PriceMin,
+      step: 5,
+      max: PriceMax,
+      values: [0, PriceMax],
+      slide: function( event, ui ) {
+        $( "#slider_input7" ).val( "от " + ui.values[ 0 ] + " ₸");
+        $( "#slider_input8" ).val( "до " + ui.values[ 1 ] + " ₸");
+      },
+      change: function( event, ui ) {
+      	$("#slider_input4").trigger('change');
+    }
+    });
+    $( "#slider_input8" ).val( "до " + PriceMax + " ₸");
+$( "#slider_input7" ).val( "до " + PriceMin + " ₸");
+});
+// ====== /slider
 
 $(".section-ticket_item[item-number = '0']").find(".item-trip-label_wrap").html("<div class='item-trip_label'>Самый удобный</div>");
 $(".section-ticket_item.__mobile[item-number = '0']").find(".item-trip-label_wrap__mobile").append("<div class='item-trip_lable'>Самый дешёвый</div>");
-
-$( "#slider-range1" ).slider({max: StopDurationMax, min: StopDurationMin, values: [0, StopDurationMax] });
-$( "#slider_input2" ).val( "до " + StopDurationMax );
-$( "#slider_input1" ).val( "до " + StopDurationMin );
-
-$( "#slider-range2" ).slider({max: Duration1Max, min: Duration1Min, values: [0, Duration1Max] });
-$( "#slider_input4" ).val( "до " + Duration1Max );
-$( "#slider_input3" ).val( "до " + Duration1Min );
-
-$( "#slider-range3" ).slider({max: Duration2Max, min: Duration2Min, values: [0, Duration2Max] });
-$( "#slider_input6" ).val( "до " + Duration2Max );
-$( "#slider_input5" ).val( "до " + Duration2Min );
-// =====================  /подготовка для фильтрации
 
 });
 
@@ -820,127 +1025,7 @@ $(".header-form-edit").click( function(e){
 });
 
 
-//  ============ sorting ============== 
- $( "#filter" ).selectmenu({
- 		change: function( event, data ) {
-     if ($(window).width() > '990'){
-      sortElement()
-    }else{
-    	sortElement_mobile()
-      }
-    }
- });
 
-var parent = document.querySelector('.section-ticket_right');
-var parent_mobile = document.querySelector('.section-ticket_right__mobile');
-
-function sortElement() {
-  [].slice.call(parent.children)
-    .sort(function(a, b) {
-      // change return value based on order
-      return document.querySelector('#filter').value * (getPrice(a) - getPrice(b));
-    }).forEach(function(ele) {
-      parent.appendChild(ele);
-    })
-}
-function sortElement_mobile() {
-  [].slice.call(parent_mobile.children)
-    .sort(function(a, b) {
-      // change return value based on order
-      return document.querySelector('#filter').value * (getPrice_mob(a) - getPrice_mob(b));
-    }).forEach(function(ele) {
-      parent.appendChild(ele);
-    })
-}
-
-function getPrice(ele) {
-  return Number(ele
-      .querySelector('.section-ticket_btn-sum')
-      .textContent
-      .replace(/[^\d.]+/g, ''))
-    // .match(/\d*(?:\.\d+)?/)[0]
-    || 0;
-}
-
-function getPrice_mob(ele) {
-  return Number(ele
-      .querySelector('.item-trip_price')
-      .textContent
-      .replace(/[^\d.]+/g, ''))
-    // .match(/\d*(?:\.\d+)?/)[0]
-    || 0;
-}
-// initially sort the element
-sortElement();
-// bind click event handler
-
-//  ============ /sorting ================
-
-//  ============ filtration ============== 
-// function FlightDuration(n, num){
-//  // var day = new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)).format("d") - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)).format("d");
-//  var day = 0;
-//  if(day == 0){
-//  	day = "";
-//  }else{
-//  	day = day + " д ";
-//  }
-// var hour = Math.trunc((new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)))/3600000);
-// var min = ((new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)))%3600000)/60000;
-//  return day+hour+" ч "+min+" мин";
-// }
-
-$("#slider_input4").change(function(){
-	Filtration();
-})
-
-$('input[type=radio][name=ticket-spoiler]').change(function() {
-	Filtration();
-});
-
-function Filtration(){
-	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
-	var slider_input1 =  parseInt($("#slider_input1").val().replace(/[^\d.]+/g, ''));
-	var slider_input2 =  parseInt($("#slider_input2").val().replace(/[^\d.]+/g, ''));
-	var slider_input4 =  parseInt($("#slider_input4").val().replace(/[^\d.]+/g, ''));
-	var slider_input3 =  parseInt($("#slider_input3").val().replace(/[^\d.]+/g, ''));
-	var slider_input6 =  parseInt($("#slider_input6").val().replace(/[^\d.]+/g, ''));
-	var slider_input5 =  parseInt($("#slider_input5").val().replace(/[^\d.]+/g, ''));
-
-console.log(slider_input1+" "+ slider_input2)
-
-	$('.section-ticket_item:not(.__mobile)').each( function(element) {
-
-		if ( $(this).attr("segment") == check_ticketSpoiler || check_ticketSpoiler == 1 ) {
-			$(this).css('display', 'flex');
-
-			if ( ($(this).attr("stop-duration") >= slider_input1 && $(this).attr("stop-duration") <=  slider_input2) || $(this).attr("stop-duration") == 0) {
-				var bool_stop_duration = true;
-			} else{
-				var bool_stop_duration = false;
-			}
-
-			if ( $(this).attr("fly-duration1") >= slider_input3 && $(this).attr("fly-duration1") <=  slider_input4 && $(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6 ) {
-				var bool_fly_duration = true;
-			} else{
-				var bool_fly_duration = false;
-				if ($(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6  && $(this).attr("fly-duration1") == 0) {
-					var bool_fly_duration = true;
-				}
-			}
-
-			if( bool_fly_duration && bool_stop_duration){
-			$(this).css('display', 'flex')
-			}else{
-			$(this).css('display', 'none')
-			}
-
-		}else{
-			$(this).css('display', 'none')
-		}
-	});
-}
-//  =========== /filtration ==============   
 
 $(".ticket-spoiler_title").click( function(e){
 	$(this).toggleClass('active').next().slideToggle(300);
@@ -1184,56 +1269,149 @@ $(".datepicker_close").click( function(e){
 });
 
 // ====== /datepicker
-// ====== slider
- $( function() {
-    $( "#slider-range1" ).slider({
-      range: true,
-      min: 0,
-      step: 5,
-      max: 500,
-      values: [ 0, 500 ],
-      slide: function( event, ui ) {
-        $( "#slider_input1" ).val( "от " + ui.values[ 0 ] );
-        $( "#slider_input2" ).val( "до " + ui.values[ 1 ] );
-        $("#slider_input4").trigger('change');
+
+
+//  ============ sorting ============== 
+ $( "#filter" ).selectmenu({
+ 		change: function( event, data ) {
+     if ($(window).width() > '990'){
+      sortElement()
+    }else{
+    	sortElement_mobile()
       }
-    });
-    $( "#slider_input1" ).val( "от " + $( "#slider-range1" ).slider( "values", 0 ));
-    $( "#slider_input2" ).val( "до " + $( "#slider-range1" ).slider( "values", 1 ));
-  } );
- $( function() {
-    $( "#slider-range2" ).slider({
-      range: true,
-      min: 0,
-      step: 5,
-      max: 1000,
-      slide: function( event, ui ) {
-        $( "#slider_input3" ).val( "от " + ui.values[ 0 ] );
-        $( "#slider_input4" ).val( "до " + ui.values[ 1 ] );
-        $("#slider_input4").trigger('change');
-      }
-    });
-    $( "#slider_input3" ).val( "от " + $( "#slider-range2" ).slider( "values", 0 ));
-    $( "#slider_input4" ).val( "до " + $( "#slider-range2" ).slider( "values", 1 ));
-    
-  } );
- $( function() {
-    $( "#slider-range3" ).slider({
-      range: true,
-      min: 0,
-      step: 5,
-      max: 1000,
-      slide: function( event, ui ) {
-        $( "#slider_input5" ).val( "от " + ui.values[ 0 ] );
-        $( "#slider_input6" ).val( "до " + ui.values[ 1 ] );
-        $("#slider_input4").trigger('change');
-      }
-    });
-    $( "#slider_input5" ).val( "от " + $( "#slider-range2" ).slider( "values", 0 ));
-    $( "#slider_input6" ).val( "до " + $( "#slider-range2" ).slider( "values", 1 ));
-    
-  } );
-// ====== /slider
+    }
+ });
+
+var parent = document.querySelector('.section-ticket_right');
+var parent_mobile = document.querySelector('.section-ticket_right__mobile');
+
+function sortElement() {
+  [].slice.call(parent.children)
+    .sort(function(a, b) {
+      // change return value based on order
+      return document.querySelector('#filter').value * (getPrice(a) - getPrice(b));
+    }).forEach(function(ele) {
+      parent.appendChild(ele);
+    })
+}
+function sortElement_mobile() {
+  [].slice.call(parent_mobile.children)
+    .sort(function(a, b) {
+      // change return value based on order
+      return document.querySelector('#filter').value * (getPrice_mob(a) - getPrice_mob(b));
+    }).forEach(function(ele) {
+      parent.appendChild(ele);
+    })
+}
+
+function getPrice(ele) {
+  return Number(ele
+      .querySelector('.section-ticket_btn-sum')
+      .textContent
+      .replace(/[^\d.]+/g, ''))
+    // .match(/\d*(?:\.\d+)?/)[0]
+    || 0;
+}
+
+function getPrice_mob(ele) {
+  return Number(ele
+      .querySelector('.item-trip_price')
+      .textContent
+      .replace(/[^\d.]+/g, ''))
+    // .match(/\d*(?:\.\d+)?/)[0]
+    || 0;
+}
+// initially sort the element
+sortElement();
+// bind click event handler
+
+//  ============ /sorting ================
+
+//  ============ filtration ============== 
+function TimeEdit(t){
+ 
+ var day = 0;
+ if(day == 0){
+ 	day = "";
+ }else{
+ 	day = day + " д ";
+ }
+var hour = Math.trunc(t/60);
+var min =  t %60;
+ return day+hour+" ч "+min+" мин";
+}
+
+$("#slider_input4").change(function(){
+	Filtration();
+})
+
+$('input[type=radio][name=ticket-spoiler]').change(function() {
+	Filtration();
+});
+
+$(document).on('change' , 'input[type=radio][name=StopAirport2]', Filtration);
+
+function Filtration(){
+
+	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
+	var check_StopAirport2 = $('input[type=radio][name=StopAirport2]:checked').val();
+	var slider_input1 =  $( "#slider-range1" ).slider( "values", 0 );
+	var slider_input2 = $( "#slider-range1" ).slider( "values", 1 );
+	var slider_input3 = $( "#slider-range2" ).slider( "values", 0 );
+	var slider_input4 =  $( "#slider-range2" ).slider( "values", 1 );
+	var slider_input5 = $( "#slider-range3" ).slider( "values", 0 );
+	var slider_input6 = $( "#slider-range3" ).slider( "values", 1 );
+	var slider_input7 = $( "#slider-range4" ).slider( "values", 0 );
+	var slider_input8 = $( "#slider-range4" ).slider( "values", 1 );
+
+// console.log( TimeEdit($( "#slider-range2" ).slider( "values", 0 )) + " : " + $( "#slider-range2" ).slider( "values" ) )
+
+	$('.section-ticket_item:not(.__mobile)').each( function(element) {
+
+		if ( $(this).attr("segment") == check_ticketSpoiler || check_ticketSpoiler == 1 ) {
+			$(this).css('display', 'flex');
+
+			if ( ($(this).attr("stop-duration") >= slider_input1 && $(this).attr("stop-duration") <=  slider_input2) || $(this).attr("stop-duration") == 0) {
+				var bool_stop_duration = true;
+			} else{
+				var bool_stop_duration = false;
+			}
+
+			if ( $(this).attr("fly-duration1") >= slider_input3 && $(this).attr("fly-duration1") <=  slider_input4 && $(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6 ) {
+				var bool_fly_duration = true;
+			} else{
+				var bool_fly_duration = false;
+				if ($(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6  && $(this).attr("fly-duration1") == 0) {
+					var bool_fly_duration = true;
+				}
+			}
+			if ( parseInt($(this).find('.section-ticket_btn-sum').text().replace(/[^\d.]+/g, '')) >= slider_input7 && parseInt($(this).find('.section-ticket_btn-sum').text().replace(/[^\d.]+/g, ''))<= slider_input8 ) {
+				var bool_price = true;
+			}else{
+				var bool_price = false;
+			}
+
+			if ( $(this).find('.trip-segment_stop').attr("data-iatas") == check_StopAirport2 || check_StopAirport2 == 1 ){
+				var bool_stop_airport = true;
+			}else{
+				var bool_stop_airport = false;
+			}
+
+
+
+			if( bool_fly_duration && bool_stop_duration && bool_price && bool_stop_airport){
+			$(this).css('display', 'flex')
+			}else{
+			$(this).css('display', 'none')
+			}
+
+		}else{
+			$(this).css('display', 'none')
+		}
+	});
+}
+//  =========== /filtration ==============   
+
 
 });
 
