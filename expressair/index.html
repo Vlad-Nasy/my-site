@@ -196,13 +196,13 @@
 					<div class="ticket-spoiler_content">
 					<label class="ticket-spoiler_label">
 						<div class="ticket-check_left">
-	      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="ticket-spoiler" value="0"><span class="ticket-spoiler_fake"></span>
+	      			<input type="radio" checked="" class="ticket-spoiler__checkbox" name="ticket-spoiler" value="1"><span class="ticket-spoiler_fake"></span>
 	      			<p>Все</p></div>
 	      			<div class="ticket-check_sum">32 062  ₸</div>
 	   			</label>
 	   			<label class="ticket-spoiler_label">
 						<div class="ticket-check_left">
-	      			<input type="radio" class="ticket-spoiler__checkbox" name="ticket-spoiler" value="1"><span class="ticket-spoiler_fake"></span>
+	      			<input type="radio" class="ticket-spoiler__checkbox" name="ticket-spoiler" value="2"><span class="ticket-spoiler_fake"></span>
 	      			<p>1 пересадка</p></div>
 	      			<div class="ticket-check_sum">32 062  ₸</div>
 	   			</label>
@@ -228,32 +228,37 @@
 	   			</label>
 	   			</div>
 				</div> -->
-<!-- 				<div class="ticket-spoiler_item">
+				<div class="ticket-spoiler_item">
 					<div class="ticket-spoiler_title">
 						Длительность пересадки
 					</div>
 					<div class="ticket-spoiler_content">
-						<div class="ticket-slider_title">Алматы – Москва</div>
 						<div class="ticket-slider_content">
 							  <input type="text" class="slider_input" id="slider_input1" readonly>
 							  <input type="text" class="slider_input" id="slider_input2" readonly>
 					</div>
  					<div class="slider-range" id="slider-range1"></div>
 					</div>
-				</div> -->
-				<!-- <div class="ticket-spoiler_item">
+				</div>
+				<div class="ticket-spoiler_item">
 					<div class="ticket-spoiler_title">
 						Время в пути
 					</div>
 					<div class="ticket-spoiler_content">
-						<div class="ticket-slider_title">Алматы – Москва</div>
+						<div class="ticket-slider_title">Алматы – Нур-Султан</div>
 						<div class="ticket-slider_content">
 							  <input type="text" class="slider_input" id="slider_input3" readonly>
 							  <input type="text" class="slider_input" id="slider_input4" readonly>
 					</div>
  					<div class="slider-range" id="slider-range2"></div>
+ 					<div class="ticket-slider_title">Нур-Султан - Алматы </div>
+						<div class="ticket-slider_content">
+							  <input type="text" class="slider_input" id="slider_input5" readonly>
+							  <input type="text" class="slider_input" id="slider_input6" readonly>
 					</div>
-				</div> -->
+ 					<div class="slider-range" id="slider-range3"></div>
+					</div>
+				</div>
 <!-- 				<div class="ticket-spoiler_item">
 					<div class="ticket-spoiler_title">
 						Авиакомпании
@@ -569,17 +574,34 @@ function Baggages(i,n){
 	}
 	return write;
 }
+
 function stop_duration(i,n){
 	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length !== 1) {
 		return CountMinutesStop(i,0,n)
 	}else{
-		return "";
+		return "0";
 	}
 }
+function fly_duration1(i,n){
+	if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
+	return ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000)}else{
+	return "0"	
+	}
+}
+function fly_duration2(i,n){
+	return ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)))/60000);
+}
 
-let FlyDurationRow = [];
-var DurationMax = 0;
-var DurationMin = 1000;
+let FlyDuration1Row = [];
+var Duration1Max = 0;
+var Duration1Min = 1000;
+let FlyDuration2Row = [];
+var Duration2Max = 0;
+var Duration2Min = 1000;
+let StopDurationRow = [];
+var StopDurationMax = 0;
+var StopDurationMin = 1000;
+
 
 for (var i = 0; i < data.ParsedData.PricedItineraries.length; ++i) {
 
@@ -589,7 +611,7 @@ if(data.ParsedData.PricedItineraries[i].Directions[0] == null){
 	var n=0;
 }
 
-$(".section-ticket_right").append("<div class='section-ticket_item ' item-number='"+i+"' fly-duration='"+ ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)))/60000) +"' stop-duration='"+ stop_duration(i,n) +"' segment='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments.length+"'> <div class='section-ticket_item-left'> <div class='section-ticket_weight'>"+ Baggages(i ,n) +"<button type='button' class='btn section-ticket_btn' data-bs-toggle='modal' data-bs-target='#modal-reserve'><div class='section-ticket_btn-sum'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +" ₸</div><div class='section-ticket_btn-text'>Оставить заявку на бронь</div></button> </div><div class='section-ticket_item-right'> <div class='section-ticket_item-trip'> <div class='item-trip_header'> <div class='item-trip_carriers'> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> </div><div class='item-trip-label_wrap'></div></div><div class='item-trip_outer'> <div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("d mmm yyyy, ddd") +"</div></div><div class='item-trip_segment-wrap'> <div class='trip-segment_duration'>"+ FlightDuration(n, i) +"</div><div class='trip-segment_path'> <div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane' alt=''> <div class='trip-segment_airport'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +"</div></div>"+ SegmentDuration(i, n)+"<div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane __arrival' alt=''> <div class='trip-segment_airport __arrival'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div></div></div></div><div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("d mmm yyyy, ddd") +"</div></div></div>"+ DirectionsTicket(i, n) + "</div></div><div class='clear'></div></div>");
+$(".section-ticket_right").append("<div class='section-ticket_item ' item-number='"+i+"'  fly-duration1='"+ fly_duration1(i,n) +"' fly-duration2='"+ fly_duration2(i,1) +"' stop-duration='"+ stop_duration(i,n) +"' segment='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments.length+"'> <div class='section-ticket_item-left'> <div class='section-ticket_weight'>"+ Baggages(i ,n) +"<button type='button' class='btn section-ticket_btn' data-bs-toggle='modal' data-bs-target='#modal-reserve'><div class='section-ticket_btn-sum'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +" ₸</div><div class='section-ticket_btn-text'>Оставить заявку на бронь</div></button> </div><div class='section-ticket_item-right'> <div class='section-ticket_item-trip'> <div class='item-trip_header'> <div class='item-trip_carriers'> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> <img class='trip-carriers_img' src='img/carrier1.jpg' alt=''> </div><div class='item-trip-label_wrap'></div></div><div class='item-trip_outer'> <div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("d mmm yyyy, ddd") +"</div></div><div class='item-trip_segment-wrap'> <div class='trip-segment_duration'>"+ FlightDuration(n, i) +"</div><div class='trip-segment_path'> <div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane' alt=''> <div class='trip-segment_airport'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +"</div></div>"+ SegmentDuration(i, n)+"<div class='trip-segment_endpoint'> <img src='img/trip-plane.png' class='trip-segment_plane __arrival' alt=''> <div class='trip-segment_airport __arrival'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div></div></div></div><div class='item-trip_schedule'> <div class='item-trip_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div><div class='item-trip_city'>"+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirportRu +"</div><div class='item-trip_date'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("d mmm yyyy, ddd") +"</div></div></div>"+ DirectionsTicket(i, n) + "</div></div><div class='clear'></div></div>");
 
 function DirectionsTicket(i,n){
 	if (data.ParsedData.PricedItineraries[i].Directions.length == 1 || n == 1) {
@@ -628,36 +650,64 @@ function SegmentAirport(i, n){
 	}
 }
 
-
+// =====================  подготовка для фильтрации
 	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
 		let city = [];
 		city.push(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirportRu);
 //console.log(city[0])
 
 };
+if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
+FlyDuration1Row[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000);
 
-FlyDurationRow[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)))/60000);
-
-if(FlyDurationRow[i] > DurationMax){
-     DurationMax = FlyDurationRow[i];   
+if(FlyDuration1Row[i] > Duration1Max){
+     Duration1Max = FlyDuration1Row[i];   
    }
 
-if(FlyDurationRow[i] < DurationMin){
-     DurationMin = FlyDurationRow[i];   
+if(FlyDuration1Row[i] < Duration1Min){
+     Duration1Min = FlyDuration1Row[i];   
    }
 //console.log( FlyDurationRow[i]);
+};
 
+
+FlyDuration2Row[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].DepartureDateTime)))/60000);
+
+if(FlyDuration2Row[i] > Duration2Max){
+     Duration2Max = FlyDuration2Row[i];   
+   }
+
+if(FlyDuration2Row[i] < Duration2Min){
+     Duration2Min = FlyDuration2Row[i];   
+   }
+
+StopDurationRow[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].DepartureDateTime)))/60000);
+
+if(StopDurationRow[i] > StopDurationMax){
+     StopDurationMax = StopDurationRow[i];   
+   }
+
+if(StopDurationRow[i] < StopDurationMin){
+     StopDurationMin = StopDurationRow[i];   
+   }
 
 };
 
 $(".section-ticket_item[item-number = '0']").find(".item-trip-label_wrap").html("<div class='item-trip_label'>Самый удобный</div>");
 $(".section-ticket_item.__mobile[item-number = '0']").find(".item-trip-label_wrap__mobile").append("<div class='item-trip_lable'>Самый дешёвый</div>");
 
-console.log( DurationMax);
+$( "#slider-range1" ).slider({max: StopDurationMax, min: StopDurationMin, values: [0, StopDurationMax] });
+$( "#slider_input2" ).val( "до " + StopDurationMax );
+$( "#slider_input1" ).val( "до " + StopDurationMin );
 
-$( "#slider-range2" ).slider({max: DurationMax, min: DurationMin, values: [0, DurationMax] });
-$( "#slider_input4" ).val( "до " + DurationMax );
-$( "#slider_input3" ).val( "до " + DurationMin );
+$( "#slider-range2" ).slider({max: Duration1Max, min: Duration1Min, values: [0, Duration1Max] });
+$( "#slider_input4" ).val( "до " + Duration1Max );
+$( "#slider_input3" ).val( "до " + Duration1Min );
+
+$( "#slider-range3" ).slider({max: Duration2Max, min: Duration2Min, values: [0, Duration2Max] });
+$( "#slider_input6" ).val( "до " + Duration2Max );
+$( "#slider_input5" ).val( "до " + Duration2Min );
+// =====================  /подготовка для фильтрации
 
 });
 
@@ -769,7 +819,8 @@ $(".header-form-edit").click( function(e){
      $(".filter-icon").removeClass("search");
 });
 
-//  ============ filtration ============== 
+
+//  ============ sorting ============== 
  $( "#filter" ).selectmenu({
  		change: function( event, data ) {
      if ($(window).width() > '990'){
@@ -779,7 +830,6 @@ $(".header-form-edit").click( function(e){
       }
     }
  });
-
 
 var parent = document.querySelector('.section-ticket_right');
 var parent_mobile = document.querySelector('.section-ticket_right__mobile');
@@ -824,39 +874,72 @@ function getPrice_mob(ele) {
 sortElement();
 // bind click event handler
 
+//  ============ /sorting ================
 
-function MaxDurationFly() {
-	$('.section-ticket_item:not(.__mobile)').each( function(element) {
-		var a =  $("#slider_input4").val().replace(/[^\d.]+/g, '');
-	if ( $(this).attr("fly-duration") > 80 ) {
-		$(this).css('display', 'none')
-	}
-	else if ( $(this).attr("fly-duration") <= a ){
-		$(this).css('display', 'flex');
-	}
-	console.log($("#slider_input4").val().replace(/[^\d.]+/g, ''));
-})
-}
+//  ============ filtration ============== 
+// function FlightDuration(n, num){
+//  // var day = new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)).format("d") - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)).format("d");
+//  var day = 0;
+//  if(day == 0){
+//  	day = "";
+//  }else{
+//  	day = day + " д ";
+//  }
+// var hour = Math.trunc((new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)))/3600000);
+// var min = ((new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].DepartureDateTime)))%3600000)/60000;
+//  return day+hour+" ч "+min+" мин";
+// }
 
 $("#slider_input4").change(function(){
-	console.log("меняюсь");
+	Filtration();
 })
 
-
 $('input[type=radio][name=ticket-spoiler]').change(function() {
-    if (this.value == '0') {
-    	$('.section-ticket_item:not(.__mobile)').each( function(element) {
-				$(this).css('display', 'flex')
-		})
-    }
-    else if (this.value == '1') {
-		    	$('.section-ticket_item:not(.__mobile)').each( function(element) {
-			if ( $(this).attr("segment") != 2 ) {
-				$(this).css('display', 'none')
-			}
-		})
-    }
+	Filtration();
 });
+
+function Filtration(){
+	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
+	var slider_input1 =  parseInt($("#slider_input1").val().replace(/[^\d.]+/g, ''));
+	var slider_input2 =  parseInt($("#slider_input2").val().replace(/[^\d.]+/g, ''));
+	var slider_input4 =  parseInt($("#slider_input4").val().replace(/[^\d.]+/g, ''));
+	var slider_input3 =  parseInt($("#slider_input3").val().replace(/[^\d.]+/g, ''));
+	var slider_input6 =  parseInt($("#slider_input6").val().replace(/[^\d.]+/g, ''));
+	var slider_input5 =  parseInt($("#slider_input5").val().replace(/[^\d.]+/g, ''));
+
+console.log(slider_input1+" "+ slider_input2)
+
+	$('.section-ticket_item:not(.__mobile)').each( function(element) {
+
+		if ( $(this).attr("segment") == check_ticketSpoiler || check_ticketSpoiler == 1 ) {
+			$(this).css('display', 'flex');
+
+			if ( ($(this).attr("stop-duration") >= slider_input1 && $(this).attr("stop-duration") <=  slider_input2) || $(this).attr("stop-duration") == 0) {
+				var bool_stop_duration = true;
+			} else{
+				var bool_stop_duration = false;
+			}
+
+			if ( $(this).attr("fly-duration1") >= slider_input3 && $(this).attr("fly-duration1") <=  slider_input4 && $(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6 ) {
+				var bool_fly_duration = true;
+			} else{
+				var bool_fly_duration = false;
+				if ($(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6  && $(this).attr("fly-duration1") == 0) {
+					var bool_fly_duration = true;
+				}
+			}
+
+			if( bool_fly_duration && bool_stop_duration){
+			$(this).css('display', 'flex')
+			}else{
+			$(this).css('display', 'none')
+			}
+
+		}else{
+			$(this).css('display', 'none')
+		}
+	});
+}
 //  =========== /filtration ==============   
 
 $(".ticket-spoiler_title").click( function(e){
@@ -1106,11 +1189,13 @@ $(".datepicker_close").click( function(e){
     $( "#slider-range1" ).slider({
       range: true,
       min: 0,
+      step: 5,
       max: 500,
       values: [ 0, 500 ],
       slide: function( event, ui ) {
         $( "#slider_input1" ).val( "от " + ui.values[ 0 ] );
         $( "#slider_input2" ).val( "до " + ui.values[ 1 ] );
+        $("#slider_input4").trigger('change');
       }
     });
     $( "#slider_input1" ).val( "от " + $( "#slider-range1" ).slider( "values", 0 ));
@@ -1125,12 +1210,27 @@ $(".datepicker_close").click( function(e){
       slide: function( event, ui ) {
         $( "#slider_input3" ).val( "от " + ui.values[ 0 ] );
         $( "#slider_input4" ).val( "до " + ui.values[ 1 ] );
-        MaxDurationFly();
         $("#slider_input4").trigger('change');
       }
     });
     $( "#slider_input3" ).val( "от " + $( "#slider-range2" ).slider( "values", 0 ));
     $( "#slider_input4" ).val( "до " + $( "#slider-range2" ).slider( "values", 1 ));
+    
+  } );
+ $( function() {
+    $( "#slider-range3" ).slider({
+      range: true,
+      min: 0,
+      step: 5,
+      max: 1000,
+      slide: function( event, ui ) {
+        $( "#slider_input5" ).val( "от " + ui.values[ 0 ] );
+        $( "#slider_input6" ).val( "до " + ui.values[ 1 ] );
+        $("#slider_input4").trigger('change');
+      }
+    });
+    $( "#slider_input5" ).val( "от " + $( "#slider-range2" ).slider( "values", 0 ));
+    $( "#slider_input6" ).val( "до " + $( "#slider-range2" ).slider( "values", 1 ));
     
   } );
 // ====== /slider
