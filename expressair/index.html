@@ -735,7 +735,7 @@ function SegmentAirport(i, n){
 // };
 
 if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
-FlyDuration1Row[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000);
+FlyDuration1Row[i] = parseInt((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000);
 
 if(FlyDuration1Row[i] > Duration1Max){
      Duration1Max = FlyDuration1Row[i];   
@@ -747,7 +747,7 @@ if(FlyDuration1Row[i] < Duration1Min){
 };
 
 
-FlyDuration2Row[i] = ((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].DepartureDateTime)))/60000);
+FlyDuration2Row[i] = parseInt((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[1].DepartureDateTime)))/60000);
 
 if(FlyDuration2Row[i] > Duration2Max){
      Duration2Max = FlyDuration2Row[i];   
@@ -759,7 +759,7 @@ if(FlyDuration2Row[i] < Duration2Min){
 
 
 if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
-StopDurationRow[i] = (Math.trunc((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[1].DepartureDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalDateTime)))/ 60000 ));
+StopDurationRow[i] = parseInt(Math.trunc((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[1].DepartureDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalDateTime)))/ 60000 ));
 
 if(StopDurationRow[i] > StopDurationMax){
      StopDurationMax = StopDurationRow[i];   
@@ -798,7 +798,7 @@ if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
 	}
 };
 
-PriceRow[i] = data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare;
+PriceRow[i] = parseInt(data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare);
 
 if(PriceRow[i] > PriceMax){
      PriceMax = PriceRow[i];   
