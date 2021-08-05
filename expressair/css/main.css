@@ -1409,6 +1409,25 @@ padding: 13px;
 }
 }
 
+@media (min-width: 990px) and (max-width: 1200px){
+/*	.section-ticket-left-wraper.filter{
+	position: fixed;
+    background: rgba(12,20,32,.24);
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+	}*/
+}
+@media screen and (min-width: 990px){
+.section-ticket_right__mobile .section-ticket_item.__mobile {
+    display: none!important;
+}
+}
 
 @media screen and (max-width: 990px) {
 
@@ -1470,8 +1489,8 @@ top: 364px;
 .btn-header_sub:after {
 	display: block;}
 
-.section-ticket_item{
-	display: none;
+.section-ticket_right .section-ticket_item{
+	display: none!important;
 }
 .section-ticket_left{
 	position: fixed;
@@ -1481,6 +1500,7 @@ top: 364px;
 	top: 0;
 	height: 100%;
 	border-radius: 0;
+	overflow-y: scroll;
 }
 .section-ticket_left.filter{
 	display: block;
