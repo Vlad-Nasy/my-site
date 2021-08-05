@@ -174,7 +174,7 @@
 	<div class="container section-ticket_container">
 		<!-- <div class="progress"><div class="progress-bar" role="progressbar" aria-valuemin="1" aria-valuemax="10"></div></div> -->
 		<div class="filter-icon">Фильтр<img src="img/filter.svg" class="filter-icon_img" alt=""></div>
-		<div class="section-ticket-left-wraper">
+		
 		<div class="section-ticket_left">
 			<div class="ticket-spoiler-mobile_header">
 				<div class="ticket-spoiler-mobile_clear"></div>
@@ -344,7 +344,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+		
 		<div class="section-ticket_right">
 		</div>
 		<div class="section-ticket_right__mobile">
@@ -1014,14 +1014,13 @@ $(".modal-btn").html(data.ParsedData.PricedItineraries[num].PriceInformation.Bas
 
 $(".filter-icon").click( function(e){
 	$(".section-ticket_left").css("display","none");
+
 	$(".section-ticket_left").addClass("filter").slideToggle(300);
-	$(".section-ticket-left-wraper").addClass("filter");
 });
 
 $(".ticket-spoiler-mobile_exit").click( function(e){
 	$(".section-ticket_left").css("display","block");
 	$(".section-ticket_left").removeClass("filter").slideToggle(300);
-	$(".section-ticket-left-wraper").removeClass("filter");
 });
 
 $(".header-form-edit").click( function(e){
@@ -1052,7 +1051,6 @@ function windowSize(){
     } else{
     	 if ($(".section-ticket_left").hasClass("search")) {
      		 $(".section-ticket_left").css("display","none");
-     		 //$(".section-ticket-left-wraper").css("display","none");
          $(".filter-icon").addClass("search");
       }	
     	if ($(".header-date_range1").hasClass("active")) {
