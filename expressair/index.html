@@ -174,6 +174,7 @@
 	<div class="container section-ticket_container">
 		<!-- <div class="progress"><div class="progress-bar" role="progressbar" aria-valuemin="1" aria-valuemax="10"></div></div> -->
 		<div class="filter-icon">Фильтр<img src="img/filter.svg" class="filter-icon_img" alt=""></div>
+		<div class="section-ticket-left-wraper">
 		<div class="section-ticket_left">
 			<div class="ticket-spoiler-mobile_header">
 				<div class="ticket-spoiler-mobile_clear"></div>
@@ -342,6 +343,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div class="section-ticket_right">
 		</div>
@@ -679,6 +681,9 @@ let PriceRow = [];
 var PriceMax = 0;
 var PriceMin = 10000000;
 
+$(".section-ticket_right").html("");
+$(".section-ticket_right__mobile").html("");
+
 for (var i = 0; i < data.ParsedData.PricedItineraries.length; ++i) {
 
 if(data.ParsedData.PricedItineraries[i].Directions[0] == null){
@@ -697,7 +702,7 @@ function DirectionsTicket(i,n){
 	}
 }
 
-$(".section-ticket_right__mobile").append("<div class='section-ticket_item __mobile' item-number='"+i+"'><div class='item-trip-mobile__header'><div class='item-trip_price'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +"₸</div><div class='item-trip_carriers'><img class='trip-carriers_img __mobile' src='img/carrier1.jpg' alt=''><img class='trip-carriers_img __mobile' src='img/carrier1.jpg' alt=''></div><div class='item-trip-label_wrap__mobile'></div></div><div class='item-trip-mobile_outer'><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +" - "+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div><div class='item-trip-mobile_text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +" – "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div></div><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>В пути</div><div class='item-trip-mobile_text'>" + FlightDuration(n, i)+"</div></div><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>"+ SegmentCount(i, n) +"</div><div class='item-trip-mobile_text'>"+ SegmentAirport(i, n) +"</div></div>"+ DirectionsMobile(i, n) +"</div></div>");
+$(".section-ticket_right__mobile").append("<div class='section-ticket_item __mobile' item-number='"+i+"'  fly-duration1='"+ fly_duration1(i,n) +"' fly-duration2='"+ fly_duration2(i,1) +"' stop-duration='"+ stop_duration(i,n) +"' segment='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments.length+"' AirlineName='"+ data.ParsedData.PricedItineraries[i].ValidatingAirlineName +"'><div class='item-trip-mobile__header'><div class='item-trip_price'>"+ data.ParsedData.PricedItineraries[i].PriceInformation.BaseFare +"₸</div><div class='item-trip_carriers'><img class='trip-carriers_img __mobile' src='img/carrier1.jpg' alt=''><img class='trip-carriers_img __mobile' src='img/carrier1.jpg' alt=''></div><div class='item-trip-label_wrap__mobile'></div></div><div class='item-trip-mobile_outer'><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>"+ data.ParsedData.PricedItineraries[i].Directions[n].DepartureAirport +" - "+ data.ParsedData.PricedItineraries[i].Directions[n].ArrivalAirport +"</div><div class='item-trip-mobile_text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].DepartureDateTime)).format("HH:MM") +" – "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].ArrivalDateTime)).format("HH:MM") +"</div></div><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>В пути</div><div class='item-trip-mobile_text'>" + FlightDuration(n, i)+"</div></div><div class='item-trip-mobile_li'><div class='item-trip-mobile_caption'>"+ SegmentCount(i, n) +"</div><div class='item-trip-mobile_text item-mobile_AirlineName'>"+ SegmentAirport(i, n) +"</div></div>"+ DirectionsMobile(i, n) +"</div></div>");
 
 
 function DirectionsMobile(i, n){
@@ -911,7 +916,7 @@ $( "#slider_input7" ).val( "до " + PriceMin + " ₸");
 // ====== /slider
 
 $(".section-ticket_item[item-number = '0']").find(".item-trip-label_wrap").html("<div class='item-trip_label'>Самый удобный</div>");
-$(".section-ticket_item.__mobile[item-number = '0']").find(".item-trip-label_wrap__mobile").append("<div class='item-trip_lable'>Самый дешёвый</div>");
+$(".section-ticket_item.__mobile[item-number = '0']").find(".item-trip-label_wrap__mobile").html("<div class='item-trip_lable'>Самый дешёвый</div>");
 
 });
 
@@ -1010,11 +1015,13 @@ $(".modal-btn").html(data.ParsedData.PricedItineraries[num].PriceInformation.Bas
 $(".filter-icon").click( function(e){
 	$(".section-ticket_left").css("display","none");
 	$(".section-ticket_left").addClass("filter").slideToggle(300);
+	$(".section-ticket-left-wraper").addClass("filter");
 });
 
 $(".ticket-spoiler-mobile_exit").click( function(e){
 	$(".section-ticket_left").css("display","block");
 	$(".section-ticket_left").removeClass("filter").slideToggle(300);
+	$(".section-ticket-left-wraper").removeClass("filter");
 });
 
 $(".header-form-edit").click( function(e){
@@ -1045,6 +1052,7 @@ function windowSize(){
     } else{
     	 if ($(".section-ticket_left").hasClass("search")) {
      		 $(".section-ticket_left").css("display","none");
+     		 //$(".section-ticket-left-wraper").css("display","none");
          $(".filter-icon").addClass("search");
       }	
     	if ($(".header-date_range1").hasClass("active")) {
@@ -1276,7 +1284,8 @@ $(".datepicker_close").click( function(e){
      if ($(window).width() > '990'){
       sortElement()
     }else{
-    	sortElement_mobile()
+    	sortElement_mobile();
+    	
       }
     }
  });
@@ -1293,13 +1302,15 @@ function sortElement() {
       parent.appendChild(ele);
     })
 }
+
 function sortElement_mobile() {
   [].slice.call(parent_mobile.children)
     .sort(function(a, b) {
       // change return value based on order
       return document.querySelector('#filter').value * (getPrice_mob(a) - getPrice_mob(b));
+      console.log("mob1");
     }).forEach(function(ele) {
-      parent.appendChild(ele);
+      parent_mobile.appendChild(ele);
     })
 }
 
@@ -1341,16 +1352,23 @@ var min =  t %60;
 }
 
 $("#slider_input4").change(function(){
-	Filtration();
+	Filtration_Call();
 })
 
 $('input[type=radio][name=ticket-spoiler]').change(function() {
-	Filtration();
+	Filtration_Call();
 });
 
-$(document).on('change' , 'input[type=radio][name=StopAirport2]', Filtration);
-$(document).on('change' , 'input[type=radio][name=AirlineName]', Filtration);
+$(document).on('change' , 'input[type=radio][name=StopAirport2]', Filtration_Call);
+$(document).on('change' , 'input[type=radio][name=AirlineName]', Filtration_Call);
 
+function Filtration_Call(){
+	if ($(window).width() > '990'){
+      Filtration()
+    }else{
+    	Filtration_mobile()
+      }
+}
 function Filtration(){
 
 	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
@@ -1374,7 +1392,7 @@ function Filtration(){
 				var bool_change = false;
 			}
 
-if ( check_AirlineName == $(this).attr("AirlineName") || check_AirlineName == 1 ) {
+	if ( check_AirlineName == $(this).attr("AirlineName") || check_AirlineName == 1 ) {
 		var bool_AirlineName = true;
 			} else{
 				var bool_AirlineName = false;
@@ -1414,7 +1432,74 @@ if ( check_AirlineName == $(this).attr("AirlineName") || check_AirlineName == 1 
 			$(this).css('display', 'none')
 			}
 
-		
+		sortElement();
+	});
+}
+
+function Filtration_mobile(){
+
+	var check_ticketSpoiler = $('input[type=radio][name=ticket-spoiler]:checked').val();
+	var check_StopAirport2 = $('input[type=radio][name=StopAirport2]:checked').val();
+	var check_AirlineName = $('input[type=radio][name=AirlineName]:checked').val();
+	var slider_input1 =  $( "#slider-range1" ).slider( "values", 0 );
+	var slider_input2 = $( "#slider-range1" ).slider( "values", 1 );
+	var slider_input3 = $( "#slider-range2" ).slider( "values", 0 );
+	var slider_input4 =  $( "#slider-range2" ).slider( "values", 1 );
+	var slider_input5 = $( "#slider-range3" ).slider( "values", 0 );
+	var slider_input6 = $( "#slider-range3" ).slider( "values", 1 );
+	var slider_input7 = $( "#slider-range4" ).slider( "values", 0 );
+	var slider_input8 = $( "#slider-range4" ).slider( "values", 1 );
+
+
+	$('.section-ticket_item.__mobile').each( function(element) {
+
+		if ( $(this).attr("segment") == check_ticketSpoiler || check_ticketSpoiler == 1 ) {
+		var bool_change = true;
+			} else{
+				var bool_change = false;
+			}
+
+	if ( check_AirlineName == $(this).attr("AirlineName") || check_AirlineName == 1 ) {
+		var bool_AirlineName = true;
+			} else{
+				var bool_AirlineName = false;
+			}
+
+			if ( ($(this).attr("stop-duration") >= slider_input1 && $(this).attr("stop-duration") <=  slider_input2) || $(this).attr("stop-duration") == 0) {
+				var bool_stop_duration = true;
+			} else{
+				var bool_stop_duration = false;
+			}
+
+			if ( $(this).attr("fly-duration1") >= slider_input3 && $(this).attr("fly-duration1") <=  slider_input4 && $(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6 ) {
+				var bool_fly_duration = true;
+			} else{
+				var bool_fly_duration = false;
+				if ($(this).attr("fly-duration2") >= slider_input5 && $(this).attr("fly-duration2")  <=  slider_input6  && $(this).attr("fly-duration1") == 0) {
+					var bool_fly_duration = true;
+				}
+			}
+			if ( parseInt($(this).find('.item-trip_price').text().replace(/[^\d.]+/g, '')) >= slider_input7 && parseInt($(this).find('.item-trip_price').text().replace(/[^\d.]+/g, ''))<= slider_input8 ) {
+				var bool_price = true;
+			}else{
+				var bool_price = false;
+			}
+
+			if ( $(this).find('.item-mobile_AirlineName').text() == check_StopAirport2 || check_StopAirport2 == 1 ){
+				var bool_stop_airport = true;
+			}else{
+				var bool_stop_airport = false;
+			}
+
+
+
+			if( bool_change && bool_fly_duration && bool_stop_duration && bool_stop_airport && bool_price && bool_AirlineName){
+			$(this).css('display', 'flex')
+			}else{
+			$(this).css('display', 'none')
+			}
+
+		sortElement();
 	});
 }
 //  =========== /filtration ==============   
