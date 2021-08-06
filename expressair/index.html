@@ -628,7 +628,9 @@ function SegmentDuration(i , n){
 	if (segment == 1) {
 	var write = "<div class='trip-segment_connector' style='flex-grow: 1;' data-toggle='tooltip' title='в пути "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].FlightDuration)).format("HH:MM")+"'></div>";
  }else{
- 	var write = "<div class='trip-segment_connector' style='flex-grow: "+ CountMinutes(i, 0, n)+";' data-toggle='tooltip' title='в пути "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].FlightDuration)).format("HH:MM")+"'></div><div data-iatas='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirport+"' class='trip-segment_stop'style='flex-grow: "+ CountMinutesStop(i,0,n)+";' data-toggle='tooltip' title='Пересадка: "+  StopDuration(i,0, n) +"'></div><div class='trip-segment_connector'style='flex-grow:"+ CountMinutes(i, 1, n)+";' data-toggle='tooltip' title='в пути "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[1].FlightDuration)).format("HH:MM")+"'></div>"
+ 	for (var b = 0; b < segment-1; b++) {
+ 	var write = "<div class='trip-segment_connector' style='flex-grow: "+ CountMinutes(i, 0, n)+";' data-toggle='tooltip' title='в пути "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[b].FlightDuration)).format("HH:MM")+"'></div><div data-iatas='"+ data.ParsedData.PricedItineraries[i].Directions[n].Segments[b].ArrivalAirport+"' class='trip-segment_stop'style='flex-grow: "+ CountMinutesStop(i,0,n)+";' data-toggle='tooltip' title='Пересадка: "+  StopDuration(i,0, n) +"'></div><div class='trip-segment_connector'style='flex-grow:"+ CountMinutes(i, 1, n)+";' data-toggle='tooltip' title='в пути "+ new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[n].Segments[b+1].FlightDuration)).format("HH:MM")+"'></div>"
+ 	}
  }
 	return write;
 }
@@ -727,17 +729,13 @@ function SegmentAirport(i, n){
 	if (segment == 1) {
 		return "---";
 	}else{
-		return data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirport;
+		for (var b = 0; b < segment-1; b++) {
+		return data.ParsedData.PricedItineraries[i].Directions[n].Segments[b].ArrivalAirport +" ";
+		}
 	}
 }
 
 // =====================  preparing for slider
-// 	if (data.ParsedData.PricedItineraries[i].Directions[n].Segments.length > 1){
-// 		let city = [];
-// 		city.push(data.ParsedData.PricedItineraries[i].Directions[n].Segments[0].ArrivalAirportRu);
-// //console.log(city[0])
-
-// };
 
 if(data.ParsedData.PricedItineraries[i].Directions[0] != null){
 FlyDuration1Row[i] = parseInt((new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].ArrivalDateTime)) - new Date(Date.parse(data.ParsedData.PricedItineraries[i].Directions[0].DepartureDateTime)))/60000);
@@ -988,8 +986,9 @@ function SegmentModal(num, n){
 	if (segment == 1) {
 		 return "";
 	}else{
-		
-		return "<div class='modal-ticket_change'> <img class='modal-ticket_change-img' src='img/people.png' alt=''> <div class='modal-ticket_change-text'>Пересадка в "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureAirportRu+" </div><div class='modal-ticket_change-time'>" +StopDuration(num,0, n)+"</div></div><div class='modal-ticket_header'> <img class='modal-ticket_airport-img' src='img/airport.jpg' alt=''> <div class='modal-ticket_airport'>"+ data.ParsedData.PricedItineraries[num].ValidatingAirlineName +"</div><div class='modal-ticket_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].FlightDuration)).format("HH ч MM мин")+" в полёте</div></div><div class='modal-ticket_schedule'> <div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureDateTime)).format("HH:MM") +"</div><div class='modal-ticket_schedule-text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureDateTime)).format("d mmm, ddd") +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureAirportRu +"</div><div class='modal-ticket_schedule-text'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureAirportRu +", "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].DepartureAirport +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].ArrivalDateTime)).format("HH:MM") +"</div><div class='modal-ticket_schedule-text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].ArrivalDateTime)).format("d mmm, ddd") +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].ArrivalAirportRu +"</div><div class='modal-ticket_schedule-text'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].ArrivalAirportRu +", "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[1].ArrivalAirport +"</div></div>"
+			for (var b = 1; b < segment; b++) {
+		return "<div class='modal-ticket_change'> <img class='modal-ticket_change-img' src='img/people.png' alt=''> <div class='modal-ticket_change-text'>Пересадка в "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureAirportRu+" </div><div class='modal-ticket_change-time'>" +StopDuration(num,0, n)+"</div></div><div class='modal-ticket_header'> <img class='modal-ticket_airport-img' src='img/airport.jpg' alt=''> <div class='modal-ticket_airport'>"+ data.ParsedData.PricedItineraries[num].ValidatingAirlineName +"</div><div class='modal-ticket_time'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].FlightDuration)).format("HH ч MM мин")+" в полёте</div></div><div class='modal-ticket_schedule'> <div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureDateTime)).format("HH:MM") +"</div><div class='modal-ticket_schedule-text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureDateTime)).format("d mmm, ddd") +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureAirportRu +"</div><div class='modal-ticket_schedule-text'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureAirportRu +", "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].DepartureAirport +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].ArrivalDateTime)).format("HH:MM") +"</div><div class='modal-ticket_schedule-text'>"+ new Date(Date.parse(data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].ArrivalDateTime)).format("d mmm, ddd") +"</div></div><div class='modal-ticket_schedule-item'> <div class='modal-ticket_schedule-caption'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].ArrivalAirportRu +"</div><div class='modal-ticket_schedule-text'>"+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].ArrivalAirportRu +", "+ data.ParsedData.PricedItineraries[num].Directions[n].Segments[b].ArrivalAirport +"</div></div>"
+			}
 	}
 }
 
