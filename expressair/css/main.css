@@ -1279,7 +1279,6 @@ color: #5646C3;
 .trip-carriers_img.__mobile{
 	width: 22px;
 	height: 22px;
-	height: max-content;
 	margin: 0 0 0 7px;
 }
 .item-trip-label_wrap__mobile{
@@ -1732,6 +1731,9 @@ padding: 16px;
 }
 
 @media (max-width: 540px){
+	.logo {
+    font-size: 36px;
+}
 .ui-autocomplete{
 	width: 95% !important;
 }
