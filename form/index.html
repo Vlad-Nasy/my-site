@@ -12,13 +12,14 @@
 </head>
 <body>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-show btn-primary" data-bs-toggle="modal" data-bs-target="#MyModal">
-  Launch static backdrop modal
+<div class="btn-wrapper">
+<button type="button" class="btn btn-show " data-bs-toggle="modal" data-bs-target="#MyModal">
+ Конфигуратор
 </button>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="MyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered  modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Выберите комплектацию</h5>
@@ -28,6 +29,10 @@
         <div class="modal-wrapper active">
         	<ul class="modal-list modal-list_name">
         	</ul>
+        </div>
+        <div class="modal-wrapper">
+          <ul class="modal-list modal-list_rangefinder">
+          </ul>
         </div>
         <div class="modal-wrapper">
         	<ul class="modal-list modal-list_correctness">
@@ -41,6 +46,8 @@
       <th scope="col">Цена</th>
       <th scope="col">Кол-во</th>
       <th scope="col">Сумма</th>
+
+
     </tr>
   </thead>
   <tbody>  
@@ -64,33 +71,57 @@ $(document).ready(function(){
     
 	})
  var index;	
-  $(document).on('click' , '.modal-list_name > .modal-li', function() {
+
+var data = (function() {
+  var json = null;
+  $.ajax({
+    'async': false,
+    'global': false,
+    'url': "mydata.json",
+    'dataType': "json",
+    'success': function(data) {
+      json = data;
+    }
+  });
+  return json;
+})();
+
+
+   for (var i = 0; i < data.device.length; ++i) {
+      $(".modal-list_name").append("<div class='modal-li modal-list-name_li' index='"+ i+"'><img src='TS03.jpg' ><div class='modal-list-name_text'> "+ data.device[i].name+ "</div></div>");
+    }
+
+
+ $(document).on('click' , '.modal-list-name_li', function() {
   var index = $(this).attr('index');
-    $.getJSON('mydata.json', function(data) {
-      $(".modal-list_correctness").html("");
-    for (var i = 0; i < data.device[index].parameters.length; ++i) {
-      $(".modal-list_correctness").append("<li class='modal-li' index='"+ index +"' index1='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
-    })
+      $(".modal-list_rangefinder").html("");
+    for (var i = 0; i < data.device[index].rangefinder.length; ++i) {
+      $(".modal-list_rangefinder").append("<li class='modal-li modal-li_btn-2' index='"+ index +"' index1='"+ i+"'>" +data.device[index].rangefinder[i]+ "</li>")}
+    
   })
 
-	$.getJSON('mydata.json', function(data) {
-		for (var i = 0; i < data.device.length; ++i) {
-			$(".modal-list_name").append("<li class='modal-li' index='"+ i+"'>" +data.device[i].name+ "</li>");
-		}
-	})
 
+  $(document).on('click' , '.modal-list_rangefinder > .modal-li', function() {
+  var index = $(this).attr('index');
+      $(".modal-list_correctness").html("");
+    for (var i = 0; i < data.device[index].parameters.length; ++i) {
+      $(".modal-list_correctness").append("<li class='modal-li modal-li_btn' index='"+ index +"' index1='"+ i+"'>" +data.device[index].parameters[i].correctness+ "</li>")}
+    
+  })
+
+	
 	
 $(document).on('click' , '.modal-list_correctness > .modal-li', function() {
       $(".modal-footer").addClass("active");
 	var index1 = $(this).attr('index1');
 	var index = $(this).attr('index');
-    $.getJSON('mydata.json', function(data) {
+      $("tbody").html("");
 	    for (var i = 0; i < data.device[index].parameters[index1].equipment.length; ++i) {
 		    var sum =  parseInt(data.device[index].parameters[index1].equipment[i].price) * parseInt(data.device[index].parameters[index1].equipment[i].count);
 	$("tbody").append("<tr><td>"+ data.device[index].parameters[index1].equipment[i].name +"</td><td class='table-price'>"+data.device[index].parameters[index1].equipment[i].price+"</td><td><input type='number' min='0' value='"+data.device[index].parameters[index1].equipment[i].count+"' class='table-input'></td><td class='table-item-price'>"+ sum +"</td></tr> ")
     	};
       sum_count();
-      });
+      
 
 });
 	
