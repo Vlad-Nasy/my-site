@@ -29,9 +29,18 @@
 }
 .modal-footer,.modal-wrapper{
 	display: none;
+    width: 100%;
 }
 .active{
 	display: block;
+}
+.modal-body{
+    background-color: #F3F3F3;
+    padding: 40px;
+    min-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .modal-footer.active{
     display: flex;
@@ -80,4 +89,31 @@ display: flex;
 .modal-list-name_text{
     margin-top: 20px;
     
+}
+.modal-modify label{
+    display: inline-flex;
+        align-items: center;
+    margin-right: 40px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.modal-modify_input{
+    margin-right: 10px;
+}
+.modal-mail{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+.modal-mail_li p{
+    margin-bottom: 0;
+    font-size: 20px;
+}
+.modal-mail_li input{
+    width: 100%;
+}
+.modal-mail-btn{
+padding: 10px;
+    grid-column: 1 / 3;
+    font-size: 20px;
 }
