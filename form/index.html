@@ -119,9 +119,8 @@ $(document).ready(function() {
     $("tbody").html("");
     $(".modal-modify").html("");
     for (var i = 0; i < window.data_divice.modify.length; ++i) {
-      $(".modal-modify").append("<label><input type='radio' name='1' class='modal-modify_input' value='" + window.data_divice.modify[i].price + "'><div>" + window.data_divice.modify[i].name + "</div></label>");
+      $(".modal-modify").append("<label><input type='checkbox' name='1' class='modal-modify_input' value='" + window.data_divice.modify[i].price + "'><div>" + window.data_divice.modify[i].name + "</div></label>");
     };
-    $(".modal-modify_input:first").prop('checked', true);
     for (var i = 0; i < window.data_parameters.equipment.length; ++i) {
       var sum = parseInt(data_parameters.equipment[i].price) * parseInt(window.data_parameters.equipment[i].count);
       $("tbody").append("<tr><td>" + window.data_parameters.equipment[i].name + "</td><td class='table-price'>" + window.data_parameters.equipment[i].price + "</td><td><input type='number' min='0' value='" + data_parameters.equipment[i].count + "' class='table-input'></td><td class='table-item-price'>" + sum + "</td></tr> ")
@@ -135,11 +134,20 @@ $(document).ready(function() {
     sum_count();
   });
   $(document).on('change', '.modal-modify_input', function() {
-    sum_count()
+     $('input[type="checkbox"]').not(this).prop('checked', false);
+    sum_count();
   })
 
   function sum_count() {
-    var sum = parseInt(window.data_parameters.price) + parseInt($(".modal-modify_input:checked").val());
+    if ( parseInt(window.data_parameters.price) + parseInt($(".modal-modify_input:checked").val()) > 0) {
+      var sum = parseInt(window.data_parameters.price) + parseInt($(".modal-modify_input:checked").val());
+      console.log("111")
+    }else{
+      var sum = 0;
+       console.log("0")
+    }
+    
+   
     $('.table-item-price').each(function() {
       sum += parseInt($(this).text())
     })
