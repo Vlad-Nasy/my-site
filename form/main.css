@@ -80,6 +80,9 @@
     flex-wrap: wrap;
     justify-content: center;
    flex-direction: row;
+display: -webkit-flex;	
+	-webkit-justify-content:center;
+	-webkit-flex-direction: row;
 }
 .modal-list-name_li{
 display: flex;
