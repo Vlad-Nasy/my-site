@@ -1417,6 +1417,26 @@ padding: 13px;
 	overflow-y: scroll;
     max-height: 77vh;
 }
+.header-form_li {
+    padding: 16px 5px;
+}
+.box2:after {
+    right: 5px;
+}
+#passenger_num {
+    width: 95%;
+}
+.sitter:after {
+    position: absolute;
+    right: 12px;
+    top: 24px;
+}
+.sitter.active:after {
+    top: 15px;
+}
+.form_li-caption {
+    margin-left: 5px;
+}
 }
 @media screen and (min-width: 990px){
 .section-ticket_right__mobile .section-ticket_item.__mobile {
@@ -1575,7 +1595,16 @@ line-height: 42px;}
     padding: 11px;
 }
 .header-form {
-justify-content: space-between;}
+justify-content: space-between;
+margin-top: 10px;
+padding-bottom: 30px;
+}
+.section-header_left.search {
+    padding-top: 60px;
+}
+.section-header.search {
+    min-height: 188px;
+}
 .ui-autocomplete {
     min-width: 95% !important;
 }
@@ -1734,6 +1763,7 @@ padding: 16px;
 	.logo {
     font-size: 36px;
 }
+
 .ui-autocomplete{
 	width: 95% !important;
 }
