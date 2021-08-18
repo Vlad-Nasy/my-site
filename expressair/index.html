@@ -945,7 +945,6 @@ function TicketModalShow(){
 }
 
 var data = window.data;
-console.log("готово");
 
 	Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
@@ -1340,7 +1339,6 @@ function sortElement_mobile() {
     .sort(function(a, b) {
       // change return value based on order
       return document.querySelector('#filter').value * (getPrice_mob(a) - getPrice_mob(b));
-      console.log("mob1");
     }).forEach(function(ele) {
       parent_mobile.appendChild(ele);
     })
@@ -1517,10 +1515,11 @@ function Filtration_mobile(){
 				var bool_price = false;
 			}
 
-			if ( $(this).find('.item-mobile_AirlineName').text() == check_StopAirport2 || check_StopAirport2 == 1 ){
+			if ( $(this).find('.item-mobile_AirlineName').text().replace(' ', '') == check_StopAirport2 || check_StopAirport2 == 1 || $(this).find('.item-mobile_AirlineName').text().includes(check_StopAirport2)){
 				var bool_stop_airport = true;
 			}else{
 				var bool_stop_airport = false;
+
 			}
 
 
