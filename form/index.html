@@ -139,13 +139,18 @@ $(document).ready(function() {
   })
 
   function sum_count() {
-    if ( parseInt(window.data_parameters.price) + parseInt($(".modal-modify_input:checked").val()) > 0) {
-      var sum = parseInt(window.data_parameters.price) + parseInt($(".modal-modify_input:checked").val());
+    if (parseInt($(".modal-modify_input:checked").val()) > 0){
+      var modify = parseInt($(".modal-modify_input:checked").val());
+    }else{
+      var modify = 0;
+    };
+
+    if ( parseInt(window.data_parameters.price) + modify > 0) {
+      var sum = parseInt(window.data_parameters.price) + modify;
     }else{
       var sum = 0;
     }
-    
-   
+
     $('.table-item-price').each(function() {
       sum += parseInt($(this).text())
     })
