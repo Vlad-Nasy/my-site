@@ -11,7 +11,7 @@
     border-radius: 5px;
     font-size: 32px;
     border: 0;
-    transition: 0.3;
+    transition: 0.3s;
     color: #fff;
 }
 .btn:hover{
@@ -28,11 +28,11 @@
     margin-top: calc(50vh - 40px);
 }
 .modal-footer,.modal-wrapper{
-	display: none;
+    display: none;
     width: 100%;
 }
 .active{
-	display: block;
+    display: block;
 }
 .modal-body{
     background-color: #F3F3F3;
@@ -56,17 +56,20 @@
     border: 0;
     color: #fff;
     cursor: pointer;
-    margin: 15px;
+    margin: 10px;
     padding: 20px;
     text-align: center;
 
 }
 .modal-li_btn-2{
     padding: 20px 40px;
+    min-width: 185px;
 }
-
+.table {
+   font-size: 20px;
+}
 .table-input{
-	width: 60px;
+    width: 60px;
     padding: 0;
     border: none;
     text-align: center;
@@ -80,9 +83,9 @@
     flex-wrap: wrap;
     justify-content: center;
    flex-direction: row;
-display: -webkit-flex;	
-	-webkit-justify-content:center;
-	-webkit-flex-direction: row;
+display: -webkit-flex;  
+    -webkit-justify-content:center;
+    -webkit-flex-direction: row;
 }
 .modal-list-name_li{
 display: flex;
@@ -140,3 +143,44 @@ padding: 10px;
     grid-column: 1 / 3;
     font-size: 20px;
 }
+
+   @media screen and (max-width: 575px) {
+       .modal-dialog {
+           margin: 0;
+       }
+       .modal-body {
+           padding: 20px;
+       }
+       .btn {
+           font-size: 24px;
+       }
+       .modal-list-name_li {
+           width: 50%;
+       }
+       .modal-list-name_li img{
+           width: 100%;
+       }
+       .modal-list-name_text {
+           margin: 10px 0 20px;
+       }
+       .modal-li_btn-2 {
+           width: 100%;
+       }
+       .modal-list {
+           width: 80%;
+           margin: 0 auto;
+       }
+       .modal-list_name{
+           width: 100%;
+       }
+       .modal-li_btn{
+           padding: 20px 25px;
+       }
+       .table {
+           font-size: 18px;
+       }
+       .modal-mail-btn {
+           margin-top: 20px;
+       }
+
+   }
